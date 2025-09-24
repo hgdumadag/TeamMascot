@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Winner Picker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <main class="app">
+        <header>
+            <h1>Random Winner Picker</h1>
+            <p class="subtitle">Upload your list, choose your prize, and let chance decide.</p>
+        </header>
+
+        <section class="card">
+            <h2>1. Upload Participants</h2>
+            <label class="file-upload">
+                <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
+                <span>Select CSV or Excel file</span>
+            </label>
+            <p class="hint">The first worksheet of the file will be used.</p>
+        </section>
+
+        <section class="card controls" aria-live="polite">
+            <h2>2. Configure Drawing</h2>
+            <div class="controls-grid">
+                <label class="control">
+                    <span>Number of winners</span>
+                    <input type="number" id="winnerCount" min="1" value="1" disabled>
+                </label>
+                <label class="control">
+                    <span>Prize</span>
+                    <input type="text" id="prizeInput" placeholder="e.g. Gift Card" disabled>
+                </label>
+                <label class="control slider-control">
+                    <span>Picking duration: <strong id="durationDisplay">3s</strong></span>
+                    <input type="range" id="durationSlider" min="1" max="10" value="3" disabled>
+                </label>
+            </div>
+            <div class="field-selector" id="fieldSelector">
+                <p class="hint">Upload a file to select fields to display.</p>
+            </div>
+            <div class="actions">
+                <button id="pickButton" disabled>Pick Winners</button>
+                <span id="remainingCount" class="remaining">Participants remaining: 0</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>3. Winners</h2>
+            <div id="loadingIndicator" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Picking winners...</p>
+            </div>
+            <div id="winnersDisplay" class="winners-list empty">
+                <p>No winners yet. Configure the draw and click &ldquo;Pick Winners&rdquo;.</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="header-with-action">
+                <h2>Winner History</h2>
+                <button id="downloadButton" disabled>Download CSV</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="winnerHistoryTable">
+                    <thead></thead>
+                    <tbody>
+                        <tr><td class="empty" colspan="1">No winners selected yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
